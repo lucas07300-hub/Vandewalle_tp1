@@ -1,0 +1,11 @@
+FROM node:alpine
+WORKDIR /app
+COPY package.json ./
+RUN npm install
+COPY server.js maybe-big-file.txt ./
+EXPOSE 3000
+ENV APP_DEBUG=false
+ENV ENV=production
+RUN npm run build
+USER node
+CMD ["node", "server.js"]
